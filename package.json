@@ -1,0 +1,33 @@
+{
+  "proxy": "http://localhost:59413/api/",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "@material-ui/core": "^4.9.13",
+    "@material-ui/icons": "^4.9.1",
+    "@material-ui/lab": "^4.0.0-alpha.53",
+    "axios": "^0.19.2",
+    "bootstrap": "^4.4.1",
+    "express": "^4.17.1",
+    "material-table": "^1.57.2",
+    "material-ui": "^1.0.0-beta.47",
+    "materialize-css": "^1.0.0",
+    "next": "^9.3.5",
+    "react": "^16.13.1",
+    "react-bootstrap": "^1.0.1",
+    "react-dom": "^16.13.1",
+    "react-hook": "0.0.1",
+    "react-hook-form": "^5.7.2",
+    "react-materialize": "^3.9.1",
+    "react-select": "^3.1.0",
+    "react-table": "^7.0.4",
+    "react-trello": "^2.2.5",
+    "styled-components": "^5.1.0"
+  },
+  "devDependencies": {
+    "babel-plugin-styled-components": "^1.10.7"
+  }
+}
