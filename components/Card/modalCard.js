@@ -17,7 +17,7 @@ import AvatarGroup from '@material-ui/lab/AvatarGroup';
 import ButtonGroup from 'react-bootstrap/ButtonGroup'
 import DropdownButton from 'react-bootstrap/DropdownButton'
 import Dropdown from 'react-bootstrap/Dropdown'
-import Chip from '@material-ui/core/Chip';
+import ModalSelectTaskUser from '../../UI/ModalMultSelectUserTask'
 
 export default function modal(newTask) {
   const {
@@ -29,16 +29,22 @@ export default function modal(newTask) {
     GetTaskModal,
     setTaskModal,
     UpdateTaskModal,
-    ChangeTaskOfCollumn
+    ChangeTaskOfCollumn,
+    handleOpenModalSelectUserTaskSprint,
+    showModalSelectUserInTask,
+    sprint
   } = useContextSprint();
 
+  console.log('user modal: ', taskModal)
 
-  const etiqueta = [
-    { value: "1", label: "Vermelho" },
-    { value: "2", label: "Verde" },
-    { value: "3", label: "Amarelo" },
-    { value: "4", label: "Azul" },
-    { value: "5", label: "Branco" }
+  const [colorDefault, setColordefault] = useState('');
+  const [effortDefault, setEffortDefault] = useState(0);
+
+
+  const tag = [
+    { value: "1", label: "high", Variante: 'Danger', Color: '#B82020' },   
+    { value: "2", label: "low",Variante: 'Success',  Color: '#1F7F14'  },
+    { value: "3", label: "average", Variante: 'Warning', Color: '#D7B332'  },
   ]
   const options = [
     { value: "1", label: "1" },
@@ -48,16 +54,24 @@ export default function modal(newTask) {
     { value: "5", label: "5" }
   ];
 
+  console.log('SPRINT NA TASK: ', sprint)
 
-  const handleSubmit = event => 
-  {
-    event.preventDefault();  
-      addTaskCollumn(taskModal);
+  const handleSubmit = event => {
+    event.preventDefault();
+    addTaskCollumn(taskModal);
   };
 
 
   async function onChangeTaskOfCollumn(e) {
     const response = await ChangeTaskOfCollumn(e, taskModal.idTask);
+  }
+
+  function onChangeColorEtiq(color){
+    setColordefault(color)
+  }
+
+  function onChangeEffort(effort){
+    setEffortDefault(effort)
   }
 
   function onChangeTask(event) {
@@ -72,9 +86,12 @@ export default function modal(newTask) {
 
   }
 
-
   return (
     <>
+      {showModalSelectUserInTask &&
+        <ModalSelectTaskUser
+          IdTask={taskModal.idTask}
+        />}
       <Modal show={show} onHide={handleClose} size='lg'>
         <Form onSubmit={handleSubmit}>
           <Modal.Header closeButton>
@@ -107,14 +124,15 @@ export default function modal(newTask) {
 
                     <ButtonGroup vertical style={{ width: '148px' }} >
 
-                      <DropdownButton as={ButtonGroup} variant="light" title="Etiqueta" id="bg-vertical-dropdown-1" style={{ color: 'white' }} >
-                        {etiqueta.map(etiq => (
-                          <Dropdown.Item eventKey={etiq.value} variant="light">{etiq.label}</Dropdown.Item>
+                      <DropdownButton as={ButtonGroup} variant={colorDefault.toLowerCase()} title={taskModal.priority!=undefined? (taskModal.priority == 'red'?'high':(taskModal.priority == 'yellow'? 'average' : 'low')) :"Tag"} id="bg-vertical-dropdown-1" style={{ background: `${taskModal.priority!=undefined? taskModal.priority: colorDefault}` }} >
+                        {tag.map(tg => (
+                          <Dropdown.Item eventKey={tg.value} style={{background: tg.Color ? tg.Color : 'white'}}onSelect={()=>onChangeColorEtiq(tg.Variante)}>{tg.label}</Dropdown.Item>
                         ))}
                       </DropdownButton>
 
-                      <DropdownButton as={ButtonGroup} variant="light" title="Effor" id="bg-vertical-dropdown-1">
-                        {options.map(op => (<Dropdown.Item eventKey="1" variant="light" >{op.label}</Dropdown.Item>
+                      <DropdownButton as={ButtonGroup} variant="light" title={taskModal.effort != 0 ? ("Effort:", `${taskModal.effort}`): (effortDefault!= 0 ? effortDefault : 'Effort')} id="bg-vertical-dropdown-1"
+                >
+                        {options.map(op => (<Dropdown.Item eventKey="1" variant="light"  onSelect={()=>onChangeEffort(op.value)}>{op.label}</Dropdown.Item>
                         ))}
                       </DropdownButton>
 
@@ -133,7 +151,13 @@ export default function modal(newTask) {
             <div style={{ height: '72px', top: '6px', position: 'relative' }}>
               <label>Members</label>
               <table>
+                
                 <tr>
+                {/* {sprint.board.listUserBoard.map(item=>(
+                    <AvatarGroup max={4}>
+                      <Avatar alt={item.name}/>
+                    </AvatarGroup>
+                ))} */}
                   <AvatarGroup max={4}>
                     <Avatar alt="Remy Sharp" />
                     <Avatar alt="Travis Howard" />
@@ -142,17 +166,11 @@ export default function modal(newTask) {
                     <Avatar alt="Trevor Henderson" />
                   </AvatarGroup>
                   <td>
-                    <Tooltip title="Add Task" aria-label="add">
+                    <Tooltip title="Add Task" aria-label="add" onClick={() => handleOpenModalSelectUserTaskSprint()}>
                       <Fab size="small" color='primary' aria-label="add">
                         <AddIcon />
                       </Fab>
                     </Tooltip>
-                  </td>
-                  <td>
-                    <div style={{ marginLeft: '450px' }}>
-                      <Chip variant="outlined" size="small" label="Effort" />
-                      <Chip variant="outlined" size="small" label="Vermelha" />
-                    </div>
                   </td>
                 </tr>
               </table>

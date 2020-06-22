@@ -6,12 +6,12 @@ import MenuProvider from '../../contexts/contextMenu';
 
 export default function PageBoard() {
     return (
-        
-            <Layout>
-                <BoardProvider>
-                    <DashBoard/>
-                </BoardProvider>
-            </Layout>
+
+        <Layout>
+            <BoardProvider>
+                <DashBoard />
+            </BoardProvider>
+        </Layout>
     );
 }
 

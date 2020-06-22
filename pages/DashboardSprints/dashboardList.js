@@ -14,6 +14,7 @@ export default function DashboardSprints() {
             <Layout>
                 <BoardProvider>
                     <SprintProvider>
+                        
                         <MenuSprint
                             showAddCollumn={true}
                         />

@@ -22,6 +22,8 @@ export default function UserProvider({ children }) {
         setUser(data);
     }
 
+    
+
     return (
         <ContextUser.Provider
             value={{

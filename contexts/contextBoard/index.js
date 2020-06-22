@@ -10,12 +10,15 @@ export default function BoardProvider({children}) {
 
     useEffect(()=>{
         
-        async function LoadBoard() {
-            const board = await ListBoard();
+        ListBoard().then(response=>{
+            const board = response;
+            console.log('retorno do board: ', response);
             setBoard(board);
-        }
-        LoadBoard();
+        })
+            
+        
     },[]);
+    
 
     return (
         <ContextBoard.Provider

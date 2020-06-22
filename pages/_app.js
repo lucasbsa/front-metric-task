@@ -1,13 +1,16 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { useEffect } from 'react';
-import {Authenticate} from '../services/ServiceAuth'
+import { Authenticate } from '../services/ServiceAuth'
+import { BrowserRouter } from 'react-router-dom'
+// import 'metrics-graphics/dist/mg.css'
+// import '../UI/metricsgraphics.css';
 
 
 
 
-export default function MyApp({Component, pageProps}){
+export default function MyApp({ Component, pageProps }) {
 
-  
+
 
   useEffect(() => {
 
@@ -19,5 +22,7 @@ export default function MyApp({Component, pageProps}){
     Auth();
 
     },[]);
-    return <Component {...pageProps}/>
+
+  return <Component {...pageProps} />
+
 };

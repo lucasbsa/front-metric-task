@@ -9,7 +9,7 @@ import InputGroup from 'react-bootstrap/InputGroup'
 import FormControl from 'react-bootstrap/FormControl'
 import { AddCollumn } from '../../services/ServiceSprint'
 import ModalSelect from '../../UI/ModalMultSelect'
-
+import { ContainerMenuSprint } from './style'
 
 export default function MenuSprint({ showAddCollumn }) {
 
@@ -18,13 +18,10 @@ export default function MenuSprint({ showAddCollumn }) {
     const [nameCollumn, setNameCollumn] = useState('');
 
     const {
-        sprint,
-        setSprint,
         newCollumn,
         showModalSelectUser,
-        setShowModalSelectUser,
         handleShowModalSelectUser,
-        handleCloseModalSelectUser } = useContextSprint();
+    } = useContextSprint();
 
     function handleNameCollumn() {
         newCollumn(nameCollumn);
@@ -37,24 +34,29 @@ export default function MenuSprint({ showAddCollumn }) {
 
 
     return (
-        <Container>
-            <Navbar expand="lg" variant="light" bg="light">
+        <ContainerMenuSprint>
+            <div style={{ background: '#A6B0BD', borderRadius: '5px', width: '98%', height: '50px' }}>
                 <StyledButton>
-                    <table key={Math.random(1,30)*3,4} style={{    right: '184px',position: 'relative'}}>
+                    <table key={Math.random(1, 30) * 3, 4} style={{ right: '184px', position: 'relative' }}>
                         <tbody>
-                            <tr key={Math.random(1,30) * 3, 45}>
-                                <td key={Math.random(1,30) * 3, 19}>
-                                    {<Button disabled={showAddCollumn} variant="primary" style={{ fontSize: '0.8rem', width:'110px' }} onClick={() => setSmShow(true)}>Add Column</Button>}
+                            <tr key={Math.random(1, 30) * 3, 45}>
+
+                                <td key={Math.random(1, 30) * 3, 19}>
+                                    {<Button disabled={showAddCollumn} variant="primary" style={{ marginTop: '8%', position: 'relative', fontSize: '0.8rem', width: '110px' }} onClick={() => setSmShow(true)}>Add Sprint</Button>}
                                 </td>
-                                <td key={Math.random(1,30) * 3, 49}>
-                                    <Button variant="primary" style={{ fontSize: '0.8rem', width:'110px'}} onClick={() => handleShowModalSelectUser()} >Invite Users</Button>
+                                <td key={Math.random(1, 30) * 3, 19}>
+                                    {<Button disabled={showAddCollumn} variant="primary" style={{ marginTop: '8%', position: 'relative', fontSize: '0.8rem', width: '110px' }} onClick={() => setSmShow(true)}>Add Column</Button>}
                                 </td>
+                                <td key={Math.random(1, 30) * 3, 49}>
+                                    <Button variant="primary" style={{ marginTop: '8%', fontSize: '0.8rem', width: '110px' }} onClick={() => handleShowModalSelectUser()} >Invite Users</Button>
+                                </td>
+
                             </tr>
                         </tbody>
                     </table>
 
                 </StyledButton>
-            </Navbar>
+            </div>
 
             {showModalSelectUser &&
                 <ModalSelect
@@ -92,8 +94,7 @@ export default function MenuSprint({ showAddCollumn }) {
                     </InputGroup>
                 </Modal.Body>
             </Modal>
+        </ContainerMenuSprint>
 
-
-        </Container >
     );
 }

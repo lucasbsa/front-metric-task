@@ -21,14 +21,16 @@ export default function ListUser() {
 
     });
 
-     function handleDelete(oldData) {
-        const respose =  DeleteUser(oldData.idUser);
-       
+    async function handleDelete(oldData) {
+        const respose =  await DeleteUser(oldData.idUser);
+        console.log('ESTOU NA LISTA, RETORNO DO DELETE: ',respose )
         GetList();
     }
 
-     function handleAdd(newData) {
-        const response =  AddUser(newData);
+    async function handleAdd(newData) {
+        console.log('CHEGOU O USER: ',newData )
+        const response =  await AddUser(newData);
+        console.log('ESTOU NA LISTA, RETORNO DO ADICIONAR: ',response )
         GetList();
     }
 

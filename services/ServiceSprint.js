@@ -17,6 +17,7 @@ import axios from 'axios';
     };
 
     export const  GetSprint = () =>{
+        console.log('FUI BUSCAR A SPRINT: ', parseInt(localStorage.showSprint))
         const IdSprint = parseInt(localStorage.showSprint)
         return axios({
             method: "GET",
@@ -56,5 +57,12 @@ import axios from 'axios';
             url: 'http://localhost:59413/api/Task/addTask',
             data:task
         });
+    };
+
+    
+    export const GetSprintForBoard = async (IdBoard)=>{ 
+        const response = await axios.get('http://localhost:59413/api/Sprint/GetSprintForBoard?IdBoard='+IdBoard);
+        return response.data;
+
     };
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import clsx from 'clsx';
 import { makeStyles, useTheme } from '@material-ui/core/styles';
 import Input from '@material-ui/core/Input';
@@ -51,59 +51,28 @@ function getStyles(name, personName, theme) {
   };
 }
 
-export default function MultipleSelect({ optionList }) {
+export default function MultipleSelectUser({ optionList }) {
 
   const {
-    personName,
-    setPersonName
-
+    personNameUserTask,
+    setPersonNameUserTask
   } = useContextSprint();
 
   const { board, setBoard } = useContextBoard();
-  
-  const [userList, setUserLis] = useState();
 
   const classes = useStyles();
   const theme = useTheme();
   // const [personName, setPersonName] = React.useState([]);  
 
 
-  console.log('nomes setados: ', localStorage.getItem('showBoard'))
+  console.log('nomes setados: ',personNameUserTask)
 
   const handleChange = (event) => {
     console.log('evento',event.target)
-    setPersonName(event.target.value);
+    setPersonNameUserTask(event.target.value);
 
   };
 
-  useEffect(()=>{
-      const board = filterBoard();
-      console.log('AQUI ESTÁ O BOARD',board[0].listUserOutBoard )
-      setUserLis(board[0].listUserOutBoard);
-  });
-
-  function filterBoard(){
-    const IdBoard = parseInt(localStorage.getItem('showBoard'));
-    console.log('board', board)
-    const filterBoard = board.filter(element => {
-      if(element.idBoard == IdBoard)
-      return element; 
-  });
-    return filterBoard;
-  }
-
-
-  
-  const handleChangeMultiple = (event) => {
-    const { options } = event.target;
-    const value = [];
-    for (let i = 0, l = options.length; i < l; i += 1) {
-      if (options[i].selected) {
-        value.push(options[i].value);
-      }
-    }
-    setPersonName(value);
-  };
 
 
   return (
@@ -114,15 +83,15 @@ export default function MultipleSelect({ optionList }) {
           labelId="demo-mutiple-checkbox-label"
           id="demo-mutiple-checkbox"
           multiple
-          value={personName}
+          value={personNameUserTask}
           onChange={handleChange}
           input={<Input />}
           renderValue={(selected) => selected.join(', ')}
           MenuProps={MenuProps}
         >
-          {userList != undefined && userList.map((name) => (
+          {board[0].listUserBoard.map((name) => (
             <MenuItem key={name.idUser} value={name.name}>
-              <Checkbox checked={personName.indexOf(name.name) > -1} />
+              <Checkbox checked={personNameUserTask.indexOf(name.name) > -1} />
               <ListItemText primary={name.name} />
             </MenuItem>
           ))}
